@@ -10,7 +10,7 @@ spring:
         enabled: false
     kubernetes:
       discovery:
-        all-namespaces: true
+        all-namespaces: false
 
 logging:
   pattern: 
