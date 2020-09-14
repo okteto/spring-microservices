@@ -1,4 +1,9 @@
+FROM maven as build
+WORKDIR /code
+COPY . /code/
+RUN mvn package
+
 FROM openjdk:8-jre-alpine
-ADD target/employee-service-1.1.jar employee-service-1.1.jar
+COPY --from=build /code/target/employee-service-1.1.jar employee-service-1.1.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/employee-service-1.1.jar"]
