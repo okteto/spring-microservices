@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin
+  template:
+    metadata:
+      labels:
+        app: admin
+    spec:
+      containers:
+      - name: admin
+        image: okteto.dev/admin-service:dev
+        ports:
+        - containerPort: 8080
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: admin
+data:
+  application.yml: |-
+    spring:
+     cloud:
+      kubernetes:
+        discovery:
+          all-namespaces: false
+          service-labels:
+            spring-boot: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP
+  selector:
+    app: admin
+  ports:
+  - port: 8080
+    targetPort: 8080

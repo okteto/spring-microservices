@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway
+  annotations:
+    dev.okteto.com/generate-host: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: gateway
+          servicePort: 8080
+      - path: /employee
+        backend:
+          serviceName: employee
+          servicePort: 8080
+      - path: /department
+        backend:
+          serviceName: department
+          servicePort: 8080
+      - path: /organization
+        backend:
+          serviceName: organization
+          servicePort: 8080

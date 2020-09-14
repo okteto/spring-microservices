@@ -1,0 +1,14 @@
+name: gateway
+image: okteto/maven:latest
+command: bash
+workdir: /okteto
+volumes:
+  - /root/.m2
+sync:
+  - .:/okteto
+forward:
+  - 5005:5005
+resources:
+  limits:
+    cpu: "1"
+    memory: 2Gi
