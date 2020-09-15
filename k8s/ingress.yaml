@@ -6,17 +6,10 @@ metadata:
     dev.okteto.com/generate-host: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  backend:
-    serviceName: default-http-backend
-    servicePort: 80
   rules:
   - http:
       paths:
       - path: /
-        backend:
-          serviceName: gateway
-          servicePort: 8080
-      - path: /swagger-ui/
         backend:
           serviceName: gateway
           servicePort: 8080
