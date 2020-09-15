@@ -38,15 +38,15 @@ public class DepartmentAPIAdvancedTest {
         System.setProperty(Config.KUBERNETES_AUTH_TRYSERVICEACCOUNT_SYSTEM_PROPERTY,
             "false");
         System.setProperty(Config.KUBERNETES_HTTP2_DISABLE, "true");
-        System.setProperty(Config.KUBERNETES_NAMESPACE_SYSTEM_PROPERTY, "pchico83");
-        hoverfly.simulate(dsl(service("kubernetes.pchico83.svc")
-            .get("/api/v1/namespaces/pchico83/configmaps/department")
+        System.setProperty(Config.KUBERNETES_NAMESPACE_SYSTEM_PROPERTY, "pablo");
+        hoverfly.simulate(dsl(service("kubernetes.pablo.svc")
+            .get("/api/v1/namespaces/pablo/configmaps/department")
             .willReturn(success().body(json(buildConfigMap())))));
     }
 
     private static ConfigMap buildConfigMap() {
         return new ConfigMapBuilder().withNewMetadata()
-            .withName("department").withNamespace("pchico83")
+            .withName("department").withNamespace("pablo")
             .endMetadata()
             .addToData("application.properties",
                 "spring.data.mongodb.uri=mongodb://localhost:27017/test")
@@ -58,17 +58,17 @@ public class DepartmentAPIAdvancedTest {
 
     private Service buildService() {
         return new ServiceBuilder().withNewMetadata().withName("employee")
-                .withNamespace("pchico83").withLabels(new HashMap<>())
+                .withNamespace("pablo").withLabels(new HashMap<>())
                 .withAnnotations(new HashMap<>()).endMetadata().withNewSpec().addNewPort()
                 .withPort(8080).endPort().endSpec().build();
     }
 
     private Endpoints buildEndpoints() {
         return new EndpointsBuilder().withNewMetadata()
-            .withName("employee").withNamespace("pchico83")
+            .withName("employee").withNamespace("pablo")
             .endMetadata()
             .addNewSubset().addNewAddress()
-            .withIp("employee.pchico83").endAddress().addNewPort().withName("http")
+            .withIp("employee.pablo").endAddress().addNewPort().withName("http")
             .withPort(8080).endPort().endSubset()
             .build();
     }

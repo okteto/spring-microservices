@@ -29,8 +29,8 @@ public class DepartmentAPITest {
         System.setProperty(Config.KUBERNETES_AUTH_TRYSERVICEACCOUNT_SYSTEM_PROPERTY,
                 "false");
         System.setProperty(Config.KUBERNETES_HTTP2_DISABLE, "true");
-        System.setProperty(Config.KUBERNETES_NAMESPACE_SYSTEM_PROPERTY, "pchico83");
-        client.configMaps().inNamespace("pchico83").createNew()
+        System.setProperty(Config.KUBERNETES_NAMESPACE_SYSTEM_PROPERTY, "pablo");
+        client.configMaps().inNamespace("pablo").createNew()
                 .withNewMetadata().withName("department").endMetadata()
                 .addToData("application.properties",
                         "spring.data.mongodb.uri=mongodb://localhost:27017/test")
