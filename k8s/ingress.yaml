@@ -4,12 +4,15 @@ metadata:
   name: gateway
   annotations:
     dev.okteto.com/generate-host: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
       paths:
       - path: /
+        backend:
+          serviceName: gateway
+          servicePort: 8080
+      - path: /swagger-ui/
         backend:
           serviceName: gateway
           servicePort: 8080
